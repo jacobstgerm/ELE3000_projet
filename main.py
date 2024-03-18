@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-import os
+import time
 
 if __name__ == "__main__":
     # Specify the output path for the video file
@@ -17,12 +17,31 @@ if __name__ == "__main__":
     cap.set(5,60.0)
     print("Frame rate set")
     fourcc = cv.VideoWriter_fourcc(*'XVID')
-    out = cv.VideoWriter('F:/ELE3000/VideoTest/output.avi', fourcc, 60.0, (1920, 1080))
 
+
+    while True:
+        profile = input("Choose profile (1 to 10)\n")
+        try:
+            if (int(profile) >= 1 and int(profile) <= 10):
+                break
+        except:
+            print("Input is not numerical")
+        print("Profile could not be recognized")
+    print(f"Profile number {profile} selected")
+        
+
+    out = cv.VideoWriter(f'F:/ELE3000/VideoTest/{profile}/{time.time()}.avi', fourcc, 60.0, (1920, 1080))
+
+    first_frame = False
+    print("Press 's' to start video")
     while cap.isOpened():
  # Capture frame-by-frame
+        #while not(first_frame):
+        #    if cv.waitKey(1) == ord('s'):
+         #       first_frame = True
+        #print("Press 's' to stop video")
         ret, frame = cap.read()
- 
+
  # if frame is read correctly ret is True
         if not ret:
             print("Can't receive frame (stream end?). Exiting ...")
