@@ -1,6 +1,7 @@
 import cv2 as cv
-import numpy as np
+import winsound
 import time
+from videotake import videotake
 
 if __name__ == "__main__":
     # Specify the output path for the video file
@@ -30,28 +31,7 @@ if __name__ == "__main__":
     print(f"Profile number {profile} selected")
         
 
-    out = cv.VideoWriter(f'C:/ELE3000/VideoTest/{profile}/{time.time()}.avi', fourcc, 60.0, (1920, 1080))
-
-    first_frame = False
-    #print("Press 's' to start video")
-    while cap.isOpened():
- # Capture frame-by-frame
-        while not(first_frame):
-            start = "s" + input("Press enter to start\n")
-            if (start == "s"):
-                first_frame = True
-        ret, frame = cap.read()
-        #print("Press 's' to stop video")
-        
- # if frame is read correctly ret is True
-        if not ret:
-            print("Can't receive frame (stream end?). Exiting ...")
-            break
-        out.write(frame)
- # Display the resulting frame
-        cv.imshow('frame', frame)
-        if cv.waitKey(1) == ord('s'):
-            break
+    videotake(profile, fourcc, cap)
  
 # When everything done, release the capture
     cap.release()
