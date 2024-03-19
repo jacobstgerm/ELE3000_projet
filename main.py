@@ -30,18 +30,19 @@ if __name__ == "__main__":
     print(f"Profile number {profile} selected")
         
 
-    out = cv.VideoWriter(f'F:/ELE3000/VideoTest/{profile}/{time.time()}.avi', fourcc, 60.0, (1920, 1080))
+    out = cv.VideoWriter(f'C:/ELE3000/VideoTest/{profile}/{time.time()}.avi', fourcc, 60.0, (1920, 1080))
 
     first_frame = False
-    print("Press 's' to start video")
+    #print("Press 's' to start video")
     while cap.isOpened():
  # Capture frame-by-frame
-        #while not(first_frame):
-        #    if cv.waitKey(1) == ord('s'):
-         #       first_frame = True
-        #print("Press 's' to stop video")
+        while not(first_frame):
+            start = "s" + input("Press enter to start\n")
+            if (start == "s"):
+                first_frame = True
         ret, frame = cap.read()
-
+        #print("Press 's' to stop video")
+        
  # if frame is read correctly ret is True
         if not ret:
             print("Can't receive frame (stream end?). Exiting ...")
@@ -49,10 +50,9 @@ if __name__ == "__main__":
         out.write(frame)
  # Display the resulting frame
         cv.imshow('frame', frame)
-        if cv.waitKey(1) == ord('q'):
+        if cv.waitKey(1) == ord('s'):
             break
  
 # When everything done, release the capture
     cap.release()
-    cv.destroyAllWindows()
     cv.destroyAllWindows()
